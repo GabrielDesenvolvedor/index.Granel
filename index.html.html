@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Encerrante Granel</title>
+
+  <link rel="icon" href="./assets/5a304f70-6b3c-4be6-8532-b79b13304435.jpg" type="image/x-icon" />
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background-color: #f0f0f0;
+      background-image: url(./assets/ree.jpg);
+    }
+
+    #container {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 80%; /* Adjusted to 80% for better visibility on roll paper */
+      max-width: 320PX;
+      text-align: center;
+    }
+
+    .product-container {
+      margin-top: 15px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input {
+      width: calc(100% - 20px);
+      padding: 8px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: #fff;
+      padding: 8px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 15px;
+    }
+
+    .signature-line {
+      width: 80%;
+      border-bottom: 1px solid #333;
+      margin: 10px auto;
+    }
+
+    .divider-line {
+      width: 80%;
+      border-bottom: 1px solid #ddd;
+      margin: 10px auto;
+    }
+
+    .compact-input {
+      width: calc(100% - 20px);
+      padding: 8px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="container">
+    <h2>Encerrante Granel</h2>
+
+    <div class="product-container">
+      <label for="hx6-initial">Hx6 - 15w40</label>
+      <input type="number" id="hx6-initial" step="0.01" class="compact-input" placeholder="Inicial">
+      <input type="number" id="hx6-final" step="0.01" class="compact-input" placeholder="Final">
+      <input type="number" id="hx6-quantity" step="0.01" class="compact-input" placeholder="Aferição">
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="product-container">
+      <label for="hx8-initial">Hx8 5w30</label>
+      <input type="number" id="hx8-initial" step="0.01" class="compact-input" placeholder="Inicial">
+      <input type="number" id="hx8-final" step="0.01" class="compact-input" placeholder="Final">
+      <input type="number" id="hx8-quantity" step="0.01" class="compact-input" placeholder="Aferição">
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="signature-line"></div>
+
+    <label for="operator-signature">Assinatura:</label>
+    <input type="text" id="operator-signature" class="compact-input" placeholder="Assinatura">
+
+    <div class="divider-line"></div>
+
+    <button onclick="generatePDF()">Gerar PDF</button>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <script>
+    function generatePDF() {
+      const hx6Initial = document.getElementById("hx6-initial").value;
+      const hx6Final = document.getElementById("hx6-final").value;
+      const hx6Quantity = document.getElementById("hx6-quantity").value;
+
+      const hx8Initial = document.getElementById("hx8-initial").value;
+      const hx8Final = document.getElementById("hx8-final").value;
+      const hx8Quantity = document.getElementById("hx8-quantity").value;
+
+      const operatorSignature = document.getElementById("operator-signature").value;
+
+      const pdf = new jspdf.jsPDF({
+        orientation: 'l', // Landscape mode
+        unit: 'mm',
+        format: 'a4',
+      });
+
+      pdf.text(20, 20, 'Hx6 - 15w40');
+      pdf.text(20, 30, `Inicial: ${hx6Initial}`);
+      pdf.text(20, 40, `Final: ${hx6Final}`);
+      pdf.text(20, 50, `Aferição: ${hx6Quantity}`);
+      pdf.line(20, 60, 277, 60); // Adiciona uma linha para dividir
+
+      pdf.text(20, 70, 'Hx8 5w30');
+      pdf.text(20, 80, `Inicial: ${hx8Initial}`);
+      pdf.text(20, 90, `Final: ${hx8Final}`);
+      pdf.text(20, 100, `Aferição: ${hx8Quantity}`);
+      pdf.line(20, 110, 277, 110); // Adiciona uma linha para dividir
+
+      pdf.text(20, 120, `Assinatura: ${operatorSignature}`);
+
+      pdf.save("encerrante.pdf");
+    }
+  </script>
+
+</body>
+
+</html>
